@@ -15,6 +15,7 @@ env:
     - PHPUNIT_BIN='vendor/bin/phpunit'
     - PHPUNIT_CONFIG='phpunit.xml.dist'
     - PHPUNIT_FLAGS='--stop-on-failure --verbose'
+    - SYMFONY_DEPRECATIONS_HELPER=weak_vendors
 
 cache:
   directories:
