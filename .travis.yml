@@ -76,3 +76,6 @@ after_script:
     if [ -n "$COVERAGE" ]; then
       $OCULAR_BIN code-coverage:upload --format=php-clover coverage.xml
     fi
+
+notifications:
+  email: false
