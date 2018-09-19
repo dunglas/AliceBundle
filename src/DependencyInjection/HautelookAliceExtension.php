@@ -12,7 +12,6 @@
 namespace Hautelook\AliceBundle\DependencyInjection;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
-use Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle;
 use Fidry\AliceDataFixtures\Bridge\Symfony\FidryAliceDataFixturesBundle;
 use Hautelook\AliceBundle\HautelookAliceBundle;
 use LogicException;
@@ -38,7 +37,7 @@ final class HautelookAliceExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $missingBundles = [DoctrineBundle::class => true, DoctrineFixturesBundle::class => true, FidryAliceDataFixturesBundle::class => true];
+        $missingBundles = [DoctrineBundle::class => true, FidryAliceDataFixturesBundle::class => true];
         foreach ($container->getParameter('kernel.bundles') as $bundle) {
             unset($missingBundles[$bundle]);
             if (!$missingBundles) {

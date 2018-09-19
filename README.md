@@ -92,7 +92,6 @@ public function registerBundles()
     if (in_array($this->getEnvironment(), ['dev', 'test'])) {
         //...
         $bundles[] = new Nelmio\Alice\Bridge\Symfony\NelmioAliceBundle();
-        $bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
         $bundles[] = new Fidry\AliceDataFixtures\Bridge\Symfony\FidryAliceDataFixturesBundle();
         $bundles[] = new Hautelook\AliceBundle\HautelookAliceBundle();
     }
