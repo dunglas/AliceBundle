@@ -18,7 +18,6 @@ use Hautelook\AliceBundle\HautelookAliceBundle;
 use LogicException;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
@@ -50,17 +49,16 @@ final class HautelookAliceExtension extends Extension
             );
         }
 
-        $this->loadConfig($configs, $container);
-        $this->loadServices($container);
-
         if (false === array_key_exists(DoctrineBundle::class, $bundles)) {
-            $container->removeDefinition('hautelook_alice.console.command.doctrine.doctrine_orm_load_data_fixtures_command');
-
-            $definition = new Definition(DoctrineOrmMissingBundleInformationCommand::class);
+            $definition = $container->register(DoctrineOrmMissingBundleInformationCommand::class, DoctrineOrmMissingBundleInformationCommand::class);
             $definition->addTag('console.command');
             $definition->setPublic(true);
-            $container->setDefinition('hautelook_alice.console.command.doctrine.doctrine_orm_bundle_missing_command', $definition);
+
+            return;
         }
+
+        $this->loadConfig($configs, $container);
+        $this->loadServices($container);
     }
 
     /**

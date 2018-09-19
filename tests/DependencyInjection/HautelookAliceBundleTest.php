@@ -12,6 +12,7 @@
 namespace Hautelook\AliceBundle\DependencyInjection;
 
 use Fidry\AliceDataFixtures\Bridge\Symfony\FidryAliceDataFixturesBundle;
+use Hautelook\AliceBundle\Console\Command\Doctrine\DoctrineOrmMissingBundleInformationCommand;
 use Hautelook\AliceBundle\Functional\AppKernel;
 use Hautelook\AliceBundle\Functional\ConfigurableKernel;
 use Hautelook\AliceBundle\Functional\WithoutDoctrineKernel;
@@ -51,10 +52,6 @@ class HautelookAliceBundleTest extends TestCase
         $this->kernel->boot();
     }
 
-    /**
-     * @expectedException \Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException
-     * @expectedExceptionMessageRegExp  /non-existent service/
-     */
     public function testWillReplaceFixtureLoadCommandWithErrorInformationCommandIfDoctrineBundleIsNotRegistered()
     {
         $this->kernel = new WithoutDoctrineKernel('ConfigurableKernel1', true);
@@ -62,13 +59,10 @@ class HautelookAliceBundleTest extends TestCase
         $this->kernel->addBundle(new NelmioAliceBundle());
         $this->kernel->boot();
 
-        // Commands
         $this->assertInstanceOf(
-            \Hautelook\AliceBundle\Console\Command\Doctrine\DoctrineOrmMissingBundleInformationCommand::class,
-            $this->kernel->getContainer()->get('hautelook_alice.console.command.doctrine.doctrine_orm_bundle_missing_command')
+            DoctrineOrmMissingBundleInformationCommand::class,
+            $this->kernel->getContainer()->get(DoctrineOrmMissingBundleInformationCommand::class)
         );
-
-        $this->kernel->getContainer()->get('hautelook_alice.console.command.doctrine.doctrine_orm_load_data_fixtures_command');
     }
 
     public function testServiceRegistration()
