@@ -12,6 +12,7 @@
 namespace Hautelook\AliceBundle\DependencyInjection;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
+use Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle;
 use Fidry\AliceDataFixtures\Bridge\Symfony\FidryAliceDataFixturesBundle;
 use Hautelook\AliceBundle\HautelookAliceBundle;
 use LogicException;
@@ -26,6 +27,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  *
  * @author Baldur Rensch <brensch@gmail.com>
  * @author Théo FIDRY <theo.fidry@gmail.com>
+ * @author Kévin Dunglas <dunglas@gmail.com>
  */
 final class HautelookAliceExtension extends Extension
 {
@@ -36,7 +38,7 @@ final class HautelookAliceExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $missingBundles = [DoctrineBundle::class => true, FidryAliceDataFixturesBundle::class => true];
+        $missingBundles = [DoctrineBundle::class => true, DoctrineFixturesBundle::class => true, FidryAliceDataFixturesBundle::class => true];
         foreach ($container->getParameter('kernel.bundles') as $bundle) {
             unset($missingBundles[$bundle]);
             if (!$missingBundles) {
@@ -45,14 +47,11 @@ final class HautelookAliceExtension extends Extension
         }
 
         if ($missingBundles) {
-            $bundles = array_keys($missingBundles);
-            if (1 === \count($missingBundles)) {
-                $without = sprintf('"%s"', $bundles[0]);
-            } else {
-                $without = sprintf('"%s" and "%s"', $bundles[0], $bundles[1]);
-            }
-
-            throw new LogicException(sprintf('Cannot register "%s" without %s.', HautelookAliceBundle::class, $without));
+            throw new LogicException(sprintf(
+                'To register "%s", you also need: "%s".',
+                HautelookAliceBundle::class,
+                implode('", "', array_keys($missingBundles))
+            ));
         }
 
         $this->loadConfig($configs, $container);

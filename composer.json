@@ -33,6 +33,7 @@
     "require": {
         "php": "^7.1",
         "doctrine/doctrine-bundle": "^1.8",
+        "doctrine/doctrine-fixtures-bundle": "^3.0",
         "doctrine/orm": "^2.5.11",
         "psr/log": "^1.0",
         "symfony/finder": "^3.4 || ^4.0",

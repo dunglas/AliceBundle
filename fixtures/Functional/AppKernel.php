@@ -12,6 +12,7 @@
 namespace Hautelook\AliceBundle\Functional;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
+use Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle;
 use Fidry\AliceDataFixtures\Bridge\Symfony\FidryAliceDataFixturesBundle;
 use Hautelook\AliceBundle\HautelookAliceBundle;
 use Nelmio\Alice\Bridge\Symfony\NelmioAliceBundle;
@@ -34,6 +35,7 @@ class AppKernel extends Kernel
             new NelmioAliceBundle(),
             new FidryAliceDataFixturesBundle(),
             new DoctrineBundle(),
+            new DoctrineFixturesBundle(),
             new HautelookAliceBundle(),
         ];
     }

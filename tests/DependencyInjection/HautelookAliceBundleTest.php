@@ -43,7 +43,7 @@ class HautelookAliceBundleTest extends TestCase
 
     /**
      * @expectedException \LogicException
-     * @expectedExceptionMessage Cannot register "Hautelook\AliceBundle\HautelookAliceBundle" without "Doctrine\Bundle\DoctrineBundle\DoctrineBundle" and "Fidry\AliceDataFixtures\Bridge\Symfony\FidryAliceDataFixturesBundle".
+     * @expectedExceptionMessage To register "Hautelook\AliceBundle\HautelookAliceBundle", you also need: "Doctrine\Bundle\DoctrineBundle\DoctrineBundle", "Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle", "Fidry\AliceDataFixtures\Bridge\Symfony\FidryAliceDataFixturesBundle".
      */
     public function testCannotBootIfFidryAliceDataFixturesBundleIsNotRegistered()
     {
@@ -53,7 +53,7 @@ class HautelookAliceBundleTest extends TestCase
 
     /**
      * @expectedException \LogicException
-     * @expectedExceptionMessage Cannot register "Hautelook\AliceBundle\HautelookAliceBundle" without "Doctrine\Bundle\DoctrineBundle\DoctrineBundle".
+     * @expectedExceptionMessage To register "Hautelook\AliceBundle\HautelookAliceBundle", you also need: "Doctrine\Bundle\DoctrineBundle\DoctrineBundle", "Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle".
      */
     public function testWillReplaceFixtureLoadCommandWithErrorInformationCommandIfDoctrineBundleIsNotRegistered()
     {
